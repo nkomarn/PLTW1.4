@@ -1,0 +1,59 @@
+import pygame
+import time
+(width,height) = (600,500)
+screen = pygame.display.set_mode((width,height))
+pygame.display.set_caption("BLUR APPLICATOR")
+pygame.display.flip()
+
+chips = [pygame.image.load('QC_Logo.png')]
+posX,posy = (0,0)
+score = 0
+color = [0,0,0]
+gray = [100,100,100]
+running = True
+mouseDown = False
+zeroOne=(0,1)
+
+screen.fill(gray)
+
+newLevel = True
+
+
+
+
+
+while running:
+    screen.fill(gray)
+    screen.blit(chips[score], (posX, posy))
+    print(posX)
+    if newLevel == True:
+        posy = 250
+        time.sleep(.1)
+        if posX < 300-(int(chips[score].get_rect().size[0])/2):
+            print(posX)
+            posX += 10
+        else:
+            newLevel = False
+
+
+    #posx, posy = pygame.mouse.get_pos()
+    print(mouseDown)
+    pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if pygame.mouse.get_pressed()[0]:
+            mouseDown = True
+            chips[score].set_at((pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]),color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0])-1, int(pygame.mouse.get_pos()[1])-1), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]) + 1, int(pygame.mouse.get_pos()[1]) + 1), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]), int(pygame.mouse.get_pos()[1]) - 1), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]), int(pygame.mouse.get_pos()[1]) + 1), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]) - 1, int(pygame.mouse.get_pos()[1])), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]) + 1, int(pygame.mouse.get_pos()[1])), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]) + 1, int(pygame.mouse.get_pos()[1]) - 1), color)
+            chips[score].set_at((int(pygame.mouse.get_pos()[0]) - 1, int(pygame.mouse.get_pos()[1]) + 1), color)
+            print(color)
+        else:
+            mouseDown = False
+
