@@ -20,14 +20,16 @@ define movingDown    4
 define movingLeft    8
 
 ; ASCII values of keys controlling the snake
-define ASCII_w      $38
-define ASCII_a      $37
-define ASCII_s      $40
-define ASCII_d      $39
+define ASCII_w      $77
+define ASCII_a      $61
+define ASCII_s      $73
+define ASCII_d      $64
 
 ; System variables
 define sysRandom    $fe
 define sysLastKey   $ff
+
+define score $00
 
 
   jsr init
@@ -49,7 +51,7 @@ initSnake:
   lda #$11
   sta snakeHeadL
   
-  lda #$10
+  lda #$a1
   sta snakeBodyStart
   
   lda #$0f
@@ -73,7 +75,7 @@ generateApplePosition:
   clc
   adc #2
   sta appleH
-
+  sta appleH
   rts
 
 
@@ -82,6 +84,8 @@ loop:
   jsr checkCollision
   jsr updateSnake
   jsr drawApple
+  ;jsr drawApple
+  ;jsr drawApple
   jsr drawSnake
   jsr spinWheels
   jmp loop
@@ -150,7 +154,16 @@ checkAppleCollision:
 
   ;eat apple
   inc snakeLength
+  inc snakeLength
+  inc snakeLength
+  inc snakeLength
+  inc snakeLength
+  inc snakeLength
+  inc snakeLength
   inc snakeLength ;increase length
+  lda #1
+  inc score
+  sta (score,x)
   jsr generateApplePosition
 doneCheckingAppleCollision:
   rts
@@ -182,6 +195,9 @@ didntCollide:
 
 
 updateSnake:
+  ldx snakeLength
+  dex
+  txa
   ldx snakeLength
   dex
   txa
@@ -256,7 +272,7 @@ drawSnake:
   sta (snakeHeadL,x) ; erase end of tail
 
   ldx #0
-  lda #1
+  lda #08
   sta (snakeHeadL,x) ; paint head
   rts
 
