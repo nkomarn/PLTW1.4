@@ -20,10 +20,10 @@ define movingDown    4
 define movingLeft    8
 
 ; ASCII values of keys controlling the snake
-define ASCII_w      $77
-define ASCII_a      $61
-define ASCII_s      $73
-define ASCII_d      $64
+define ASCII_w      $38
+define ASCII_a      $37
+define ASCII_s      $40
+define ASCII_d      $39
 
 ; System variables
 define sysRandom    $fe
